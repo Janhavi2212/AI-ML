@@ -1,0 +1,25 @@
+**a. Describe the differences between call, apply, and bind in JavaScript. In which situations would you use each one?**
+
+*   "All three (`call`, `apply`, `bind`) are methods available on JavaScript functions used to explicitly set the `this` value when calling a function, and potentially pass arguments.
+    *   **`call(thisArg, arg1, arg2, ...)`:** Invokes the function *immediately* with a specified `this` value and arguments provided individually, separated by commas.
+        *   **Use case:** When you know the arguments explicitly at the time of calling and want to execute the function right away with a specific `this` context.
+    *   **`apply(thisArg, [argsArray])`:** Invokes the function *immediately* with a specified `this` value and arguments provided as an *array* (or an array-like object).
+        *   **Use case:** Similar to `call`, but useful when the arguments are already in an array or when the number of arguments is dynamic. Often used with `Math.max` or `Math.min` on an array of numbers.
+    *   **`bind(thisArg, arg1, arg2, ...)`:** Does *not* invoke the function immediately. Instead, it returns a *new function* where the `this` value is permanently bound to `thisArg`, and initial arguments (`arg1`, `arg2`, etc.) can be pre-set (partially applied). This new function can be called later.
+        *   **Use case:** When you want to create a function that will be called later (e.g., in an event handler, callback, or `setTimeout`) and ensure it runs with a specific `this` context, regardless of how it's eventually invoked. Commonly used in class components to bind event handlers to the component instance."
+
+**b. Can you explain the concept of "hoisting" in JavaScript?**
+
+*   "Hoisting is a JavaScript mechanism where declarations of variables (`var`) and functions (`function functionName() {}`) are conceptually moved to the top of their containing scope (either function scope or global scope) *before* the code is executed.
+    *   **Variable Hoisting:** Only the *declaration* is hoisted, not the *initialization*. So, if you use a `var` variable before its declaration line, it will exist but its value will be `undefined`.
+    *   **Function Hoisting:** For function declarations, the *entire function definition* is hoisted. This means you can call a function declared using the `function functionName() {}` syntax *before* its actual line in the code.
+    *   **`let` and `const`:** Variables declared with `let` and `const` are also technically hoisted, but they are not *initialized*. Accessing them before their declaration line results in a `ReferenceError` due to the 'Temporal Dead Zone' (TDZ), making them behave more predictably than `var`."
+
+**c. How does the event loop work in JavaScript, and why is it important for asynchronous operations?**
+
+*   "JavaScript is single-threaded, meaning it can only execute one piece of code at a time. The event loop is the mechanism that allows JavaScript to handle asynchronous operations (like `setTimeout`, API calls, DOM events) without blocking the main thread. Here's a simplified overview:
+    1.  **Call Stack:** This is where JavaScript keeps track of function calls. When a function is called, it's pushed onto the stack; when it returns, it's popped off. Synchronous code runs entirely on the call stack.
+    2.  **Web APIs / Node APIs:** When an asynchronous operation (e.g., `setTimeout(callback, 1000)`, `fetch(url)`) is encountered, it's handed off to the browser's Web API (or Node.js C++ APIs). The JavaScript engine doesn't wait; it continues executing subsequent synchronous code.
+    3.  **Callback Queue (or Task Queue):** Once the asynchronous operation is complete (the timer finishes, the API responds), its associated callback function is placed in the Callback Queue.
+    4.  **Event Loop:** The event loop continuously monitors two things: the Call Stack and the Callback Queue. Its job is simple: **If the Call Stack is empty, it takes the first callback function from the Callback Queue and pushes it onto the Call Stack**, where it will be executed.
+    *   **Importance:** This model prevents long-running operations (like network requests) from freezing the user interface. While waiting for the async operation, the main thread remains free to handle other events (like user clicks or rendering updates). The event loop ensures that callbacks are processed in order, once the main thread is available, providing a non-blocking concurrency model despite the single thread."

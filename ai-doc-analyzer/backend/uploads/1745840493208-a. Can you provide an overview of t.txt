@@ -1,0 +1,32 @@
+**a. Can you provide an overview of the flow in Redux?**
+
+*   "Certainly. The Redux flow is unidirectional and follows these steps:
+    1.  **Action:** An event occurs in the UI (like a button click). An 'action creator' function creates an 'action' object, which must have a `type` property describing the event (e.g., `{ type: 'ADD_TODO', payload: 'Learn Redux' }`).
+    2.  **Dispatch:** This action object is then 'dispatched' using the `dispatch` function, usually provided by the Redux store.
+    3.  **Reducer:** The dispatched action travels to the 'reducer'. A reducer is a pure function that takes the current state and the action as arguments and returns the *new* state based on the action type. It doesn't modify the original state but returns a new state object (`(currentState, action) => newState`).
+    4.  **Store:** The 'store' holds the application's single source of truth (the state tree). It receives the new state from the reducer and updates itself.
+    5.  **UI Update:** Components connected to the Redux store (often via libraries like `react-redux`) 'subscribe' to store updates. When the store updates, these components re-render with the new data derived from the state."
+
+**b. How would you explain the main difference between React's state and Redux's state?**
+
+*   "The main difference lies in **scope and purpose**.
+    *   **React's component state** (managed via `useState` or `this.state`) is typically local to a single component or a small hierarchy of components. It's used for managing UI-specific data, like whether a dropdown is open, input field values, or data relevant only to that component and its direct children.
+    *   **Redux's state** is global application state, held in a single store. It's designed for state that needs to be accessed or modified by many components across the application, regardless of their position in the component tree. Examples include user authentication status, application-wide settings, or data fetched from an API that multiple parts of the UI need."
+
+**c. What is a "store" in the context of Redux?**
+
+*   "The Redux 'store' is the central hub of your application's state. It's an object that:
+    1.  Holds the entire application state tree (a single JavaScript object).
+    2.  Provides a `getState()` method to access the current state.
+    3.  Provides a `dispatch(action)` method to trigger state updates.
+    4.  Provides a `subscribe(listener)` method to register callbacks that are executed whenever the state changes.
+    *   Essentially, it brings together the state, actions, and reducers, managing the entire state lifecycle."
+
+**d. How does middleware fit into the Redux flow?**
+
+*   "Middleware provides an extension point in the Redux flow, sitting **between dispatching an action and the moment it reaches the reducer**. It allows you to intercept actions and add extra logic. Common use cases for middleware include:
+    *   Logging actions and state changes.
+    *   Handling asynchronous operations (like API calls using `redux-thunk` or `redux-saga`).
+    *   Performing side effects like routing changes.
+    *   Modifying or even cancelling actions before they reach the reducer.
+    *   Middleware functions receive `dispatch` and `getState` as arguments, allowing them to dispatch further actions or access the current state."
