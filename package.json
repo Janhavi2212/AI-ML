@@ -1,0 +1,19 @@
+{
+    "name": "ai-document-analyzer",
+    "version": "1.0.0",
+    "description": "AI-Powered Document Analysis App",
+    "main": "ai-doc-analyzer/backend/server.js",
+    "scripts": {
+      "start": "node ai-doc-analyzer/backend/server.js",
+      "build": "cd ai-doc-analyzer/frontend && npm install && npm run build",
+      "install-all": "npm install && cd ai-doc-analyzer/frontend && npm install && cd ../backend && npm install"
+    },
+    "engines": {
+      "node": ">=14.0.0"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "cors": "^2.8.5",
+      "dotenv": "^16.0.3"
+    }
+  }
