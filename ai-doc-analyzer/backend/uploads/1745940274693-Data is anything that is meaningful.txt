@@ -1,0 +1,15 @@
+Data is anything that is meaningful to the computer. 
+eight different data types = Undefined, null(=nothing), boolean(true or false), string, symbol, bigint, number and object.
+
+
+visual studio code
+ms for code
+
+
+grouping a set of instructions is called function
+
+function that you declare in script.js isn also available in console, we can write it there directly
+
+
+
+ 

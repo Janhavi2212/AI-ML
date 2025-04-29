@@ -1,0 +1,53 @@
+
+
+
+click event: when the user clicks the "roll one die" button, a random number between 1 and 6 should be generated and the corresponding die face should displayed.
+2. click event(two dice)- when the user clicks the "roll two dice' button, two random numbers between 1 and 6 should be generate, and both dice faces should be displayed. the total result should also be shown. 
+3. animation: add a rolling animation for the dice, where the faces quickly change for about 1-2 seconds before stopping on the final result.
+4. hover effect; when the user hovers over a button, the button background color should change.
+5. alert event- if the user rolls double sixes , display an alert that says "you rolled double sixes"
+
+make changes in this code but do retain this somehow:
+. 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    
+    <style>
+       /* Please Add All The Styles Here in the Style Tag */
+       
+       
+    </style>
+  </head>
+  <body>
+     <!--Please Code HTML tags Here in the Body Tag-->
+     <button id="die1">Roll two dice</button>
+    <h3 id="diceA"></h3>
+    <n3 id="diceB"></n3>
+     
+  </body>
+  <script >
+    // Please Select The HTML Tags Created Above and Attach Events Here
+      // JavaScript for handling button click event
+      let btn = document.getElementById("die1");
+      
+      function cerateDots(num){
+        const dicePatterns={
+          
+        }
+      }
+      btn.addEventListener("click", function() {
+        // Generate random numbers for two dice
+        let num1 = Math.floor(Math.random() * 6) + 1;
+        let diceA = document.getElementById("diceA");
+        diceA.textContent = num1;
+        
+        let num2 = Math.floor(Math.random() * 6) + 1;
+        let diceB = document.getElementById("diceB"); // Corrected the variable name
+        diceB.textContent = num2;
+      });
+
+  </script>
+</html>

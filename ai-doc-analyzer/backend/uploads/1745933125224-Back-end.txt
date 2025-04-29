@@ -1,0 +1,11 @@
+Back-end:
+Why do we use node.js?
+node js will be used to write code on server
+js- on browser,
+
+client side - requests processor
+server side - logics and stuff
+
+restful APIs - whatever apis created using get post etc are called rest apis
+
+mongo.sh-

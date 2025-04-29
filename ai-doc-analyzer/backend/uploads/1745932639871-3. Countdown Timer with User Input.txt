@@ -1,0 +1,7 @@
+3. Countdown Timer with User Input
+Create a countdown timer that takes user input for the number of seconds to count down from.
+An input field to enter the number of seconds.
+A Start button to begin the countdown.
+Display the remaining time dynamically.
+Disable the input field while the timer is running.
+When the countdown reaches zero, display a "Time's up!" message.

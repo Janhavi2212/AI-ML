@@ -1,0 +1,89 @@
+**a. What is the purpose of the useRef hook and in which scenarios would you use it?**
+
+*   "The `useRef` hook serves two primary purposes:
+    1.  **Accessing DOM Nodes:** It provides a way to get a direct reference to a DOM element rendered by a component. You create a ref (`const inputRef = useRef()`), attach it to an element (`<input ref={inputRef} />`), and can then access the underlying DOM node (e.g., `inputRef.current.focus()`).
+    2.  **Storing Mutable Values Without Causing Re-renders:** `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument (or `undefined`). Crucially, *updating the `.current` property does not trigger a component re-render*. This makes it useful for storing values that need to persist across renders but don't affect the visual output directly, like timer IDs, previous state values, or instance variables you might have used in class components."
+
+**b. Describe the difference between state and props in React.**
+
+*   "**State** and **Props** are both plain JavaScript objects holding information that influences a component's render output, but they differ in ownership and mutability:
+    *   **Props (Properties):** Props are passed *down* from a parent component to a child component. They are **read-only** within the child component; the child cannot directly modify its props. Think of them as function arguments – they configure the component from the outside.
+    *   **State:** State is managed *within* a component (using `useState` or `this.setState`). It's **private and controlled by the component itself**. State can change over time, usually in response to user interactions or network responses, and when state changes, the component typically re-renders to reflect the update. Think of state as a component's internal memory."
+
+**c. How would you create a stopwatch component using the useState and useEffect hooks?**
+
+*   "Okay, here's the conceptual approach:
+    1.  **State:** We'll need state variables using `useState`:
+        *   `isRunning` (boolean): To track if the stopwatch is active. Initial value: `false`.
+        *   `timeElapsed` (number): To store the elapsed time in seconds (or milliseconds). Initial value: `0`.
+    2.  **Effect for Timer:** We'll use `useEffect` to manage the timer interval:
+        *   The effect will depend on the `isRunning` state variable.
+        *   **Inside the effect:**
+            *   Check if `isRunning` is `true`.
+            *   If true, set up an interval (using `setInterval`) that increments the `timeElapsed` state every second (or more frequently for milliseconds). Store the interval ID returned by `setInterval`.
+            *   If `isRunning` is `false`, do nothing (or ensure any existing interval is cleared).
+        *   **Cleanup function:** The effect must return a cleanup function. This function will clear the interval (using `clearInterval` with the stored ID) when the component unmounts *or* when the `isRunning` state changes from `true` to `false` (before the effect runs again). This prevents memory leaks and multiple intervals running simultaneously.
+    3.  **Event Handlers:** We'll need functions to:
+        *   `handleStartStop`: Toggles the `isRunning` state.
+        *   `handleReset`: Sets `isRunning` to `false` and `timeElapsed` back to `0`.
+    4.  **JSX:** Render the `timeElapsed` (formatted nicely), and buttons for "Start/Stop" (conditionally labeled based on `isRunning`) and "Reset", linking them to the respective handler functions."
+
+    ```jsx
+    import React, { useState, useEffect, useRef } from 'react';
+
+    function Stopwatch() {
+      const [isRunning, setIsRunning] = useState(false);
+      const [timeElapsed, setTimeElapsed] = useState(0);
+      // useRef is good for interval IDs to avoid issues with stale closures
+      const intervalRef = useRef(null);
+
+      useEffect(() => {
+        if (isRunning) {
+          // Start the interval
+          intervalRef.current = setInterval(() => {
+            setTimeElapsed(prevTime => prevTime + 1); // Update based on previous state
+          }, 1000); // Update every second
+        } else {
+          // Clear interval if running is false
+          clearInterval(intervalRef.current);
+        }
+
+        // Cleanup function: Clears interval when component unmounts
+        // or before the effect runs again if isRunning changes.
+        return () => clearInterval(intervalRef.current);
+
+      }, [isRunning]); // Dependency: run effect when isRunning changes
+
+      const handleStartStop = () => {
+        setIsRunning(!isRunning);
+      };
+
+      const handleReset = () => {
+        setIsRunning(false); // Stop the timer
+        setTimeElapsed(0);   // Reset time
+      };
+
+      // Format timeElapsed for display (e.g., seconds)
+      const formatTime = (time) => {
+          const seconds = `0${time % 60}`.slice(-2);
+          const minutes = `0${Math.floor(time / 60) % 60}`.slice(-2);
+          const hours = `0${Math.floor(time / 3600)}`.slice(-2);
+          return `${hours}:${minutes}:${seconds}`;
+      }
+
+
+      return (
+        <div>
+          <h1>Stopwatch</h1>
+          {/* Display formatted time */}
+          <div>Time: {formatTime(timeElapsed)}</div>
+          <button onClick={handleStartStop}>
+            {isRunning ? 'Stop' : 'Start'}
+          </button>
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      );
+    }
+
+    export default Stopwatch;
+    ```

@@ -1,0 +1,5 @@
+Library- a collection of prewritten codes
+framework- a set of prebuilt libraries that provides a structure for a developer to build upon
+
+
+
