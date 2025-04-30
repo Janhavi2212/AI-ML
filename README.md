@@ -20,7 +20,7 @@ An application that analyzes **TXT** and **PDF** files. It consists of a **front
 
 ### 1️⃣ Clone Repository
 ```sh
-git clone https://github.com/YOUR-USERNAME/AI-ML.git
+git clone https://github.com/Janhavi2212/AI-ML.git
 cd ai-doc-analyzer
 
 2️⃣ Backend Setup
