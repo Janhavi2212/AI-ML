@@ -39,3 +39,7 @@ npm install
 npm start
 
 
+Deployed Link-
+https://storied-medovik-d3e9c9.netlify.app/
+
+
